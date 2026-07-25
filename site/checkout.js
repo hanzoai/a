@@ -23,8 +23,8 @@
     console.warn('[hanzo/checkout] missing data-key — add data-key="pk_…" (a publishable key). Not loaded.');
     return;
   }
-  if (/^(hk-|sk-)/.test(key)) {
-    console.error('[hanzo/checkout] data-key looks like a SECRET key — never expose hk-/sk- keys in a browser. Use a publishable pk_ key. Aborted.');
+  if (/^(hk-|sk-|fw_)/i.test(key)) {
+    console.error('[hanzo/checkout] data-key looks like a SECRET key — never expose hk-/sk-/fw_ keys in a browser. Use a publishable pk_ key. Aborted.');
     return;
   }
 
@@ -60,7 +60,11 @@
     if (!b.slug && !b.name) { console.warn('[hanzo/checkout] [data-hanzo-checkout] needs data-slug or data-name.'); return; }
     ev.preventDefault();
     var item = { productSlug: b.slug, id: b.slug || b.name, name: b.name || b.slug, quantity: Number(b.qty) || 1 };
-    if (!isNaN(price)) item.unitPrice = Math.round(price * 100);
+    // A slug'd item is repriced server-side from the catalog — never send a client
+    // data-price for it (would let a forged data-price="0.01" set the charge). The
+    // client price is honored ONLY for a slug-less ad-hoc amount, where the price
+    // IS the request (custom "pay this" with no catalog entry to reprice against).
+    if (!b.slug && !isNaN(price)) item.unitPrice = Math.round(price * 100);
     var here = location.origin + location.pathname;
     try {
       client.createSession({

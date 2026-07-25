@@ -21,8 +21,8 @@
     console.warn('[hanzo/chat] missing data-key — add data-key="hz_…" (a client-safe widget key). Not loaded.');
     return;
   }
-  if (/^(hk-|sk-)/.test(key)) {
-    console.error('[hanzo/chat] data-key looks like a SECRET key — never expose hk-/sk- keys in a browser. Use an hz_ widget key. Aborted.');
+  if (/^(hk-|sk-|fw_)/i.test(key)) {
+    console.error('[hanzo/chat] data-key looks like a SECRET key — never expose hk-/sk-/fw_ keys in a browser. Use an hz_ widget key. Aborted.');
     return;
   }
   if (key.indexOf('hz_') !== 0) {

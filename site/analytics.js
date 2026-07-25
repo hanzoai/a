@@ -20,8 +20,8 @@
     console.warn('[hanzo/analytics] missing data-key — add data-key="pk_…" (a publishable ingest token). Not loaded.');
     return;
   }
-  if (/^(hk-|sk-)/.test(key)) {
-    console.error('[hanzo/analytics] data-key looks like a SECRET key — never expose hk-/sk- keys in a browser. Use a publishable pk_ token. Aborted.');
+  if (/^(hk-|sk-|fw_)/i.test(key)) {
+    console.error('[hanzo/analytics] data-key looks like a SECRET key — never expose hk-/sk-/fw_ keys in a browser. Use a publishable pk_ token. Aborted.');
     return;
   }
 
