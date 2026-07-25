@@ -52,7 +52,7 @@
       <p>A floating chat bubble that streams answers from your Hanzo AI. Uses a client-safe <strong>hz_ widget key</strong> that bills your org.</p>
       <div class="snip">
         <button class="copy" data-copy>Copy</button>
-        <pre><code>&lt;script src="https://a.hanzo.ai/chat" data-key="hz_..."&gt;&lt;/script&gt;</code></pre>
+        <pre><code>&lt;script src="https://a.hanzo.ai/chat.js" data-key="hz_..."&gt;&lt;/script&gt;</code></pre>
       </div>
       <p class="note">Optional: <code>data-model</code> <code>data-title</code> <code>data-greeting</code> <code>data-accent</code>. The bubble in the corner of this page is the real widget →</p>
     </div>
@@ -62,7 +62,7 @@
       <p>Zero-config event capture + <em>Annotate</em>: schema.org / <code>data-slot</code> microdata auto-emits signals to <code>api.hanzo.ai/v1/analytics</code>. Uses a publishable, write-only <strong>pk_ ingest token</strong>.</p>
       <div class="snip">
         <button class="copy" data-copy>Copy</button>
-        <pre><code>&lt;script src="https://a.hanzo.ai/analytics" data-key="pk_..."&gt;&lt;/script&gt;</code></pre>
+        <pre><code>&lt;script src="https://a.hanzo.ai/analytics.js" data-key="pk_..."&gt;&lt;/script&gt;</code></pre>
       </div>
       <p class="note">Then call <code>window.hanzoAnalytics.track(name, params)</code> for custom events.</p>
     </div>
@@ -72,7 +72,7 @@
       <p>Hosted checkout — card fields live on Hanzo's page, never your DOM. Tag any button and it just works. Uses a <strong>publishable pk_ key</strong>.</p>
       <div class="snip">
         <button class="copy" data-copy>Copy</button>
-        <pre><code>&lt;script src="https://a.hanzo.ai/checkout" data-key="pk_..."&gt;&lt;/script&gt;
+        <pre><code>&lt;script src="https://a.hanzo.ai/checkout.js" data-key="pk_..."&gt;&lt;/script&gt;
 &lt;button data-hanzo-checkout data-slug="tee" data-name="T-Shirt" data-price="29"&gt;Buy&lt;/button&gt;</code></pre>
       </div>
       <p class="note">Custom carts: <code>window.hanzoCheckout.createSession({lineItems}).then(window.hanzoCheckout.redirectToCheckout)</code>.</p>
@@ -80,7 +80,7 @@
 
   </div>
 
-  <p class="live">The extensionless URL is canonical (<code>/chat</code>); the <code>.js</code> form works too (<code>/chat.js</code>). Each loader reads <code>data-*</code>, refuses secret keys, and degrades to a console warning if misconfigured — it never throws into your page.</p>
+  <p class="live">Load a loader by its <code>.js</code> URL (<code>/chat.js</code>, <code>/analytics.js</code>, <code>/checkout.js</code>). Each reads <code>data-*</code>, refuses secret keys, and degrades to a console warning if misconfigured — it never throws into your page.</p>
 
   <footer>
     <a href="https://hanzo.ai">hanzo.ai</a>
@@ -102,10 +102,9 @@
     });
   });
 </script>
-<!-- Live preview: the real Ask-AI bubble. The page loads the .js form so the demo
-     works on any static base; the advertised one-liner is the clean /chat alias.
-     Sending needs a valid hz_ key; with the demo key it shows the graceful
-     "not authorized" path — the widget UI is real. -->
+<!-- Live preview: the real Ask-AI bubble, loaded by its /chat.js URL (same form
+     the gallery advertises). Sending needs a valid hz_ key; with the demo key it
+     shows the graceful "not authorized" path — the widget UI is real. -->
 <script src="/chat.js" data-key="hz_demo" data-greeting="Hi! This is the live Ask-AI bubble. Add your hz_ key to make it answer."></script>
 </body>
 </html>
