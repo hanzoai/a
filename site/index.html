@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>a.hanzo.ai — drop-in Hanzo widgets</title>
+<meta name="description" content="One line of HTML drops a Hanzo widget onto any site: Ask-AI chat, analytics, or hosted checkout. Tiny, framework-free, Shadow-DOM isolated.">
+<meta property="og:title" content="a.hanzo.ai — drop-in Hanzo widgets">
+<meta property="og:description" content="Paste one <script> line. Get a working Hanzo widget.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root{--ink:#0a0a0a;--bg:#fff;--mut:#6b6b6b;--line:#ececec;--card:#fafafa;--code:#0a0a0a;--codeink:#f4f4f4}
+  @media (prefers-color-scheme:dark){:root{--ink:#f4f4f4;--bg:#0a0a0a;--mut:#9b9b9b;--line:#1f1f1f;--card:#111;--code:#000;--codeink:#eaeaea}}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:760px;margin:0 auto;padding:64px 20px 96px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:20px;letter-spacing:-.02em}
+  .mark{width:30px;height:30px;border-radius:8px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px}
+  h1{font-size:40px;line-height:1.08;letter-spacing:-.03em;margin:34px 0 12px;font-weight:800}
+  .sub{font-size:19px;color:var(--mut);margin:0 0 8px;max-width:34em}
+  .cards{margin-top:44px;display:flex;flex-direction:column;gap:18px}
+  .card{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--card)}
+  .card h2{margin:0;font-size:18px;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+  .card p{margin:7px 0 15px;color:var(--mut);font-size:15px}
+  .tag{font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:4px 7px;border:1px solid var(--line);border-radius:999px;color:var(--mut)}
+  .snip{position:relative;background:var(--code);border-radius:11px;overflow:hidden}
+  pre{margin:0;padding:15px 92px 15px 15px;overflow-x:auto;color:var(--codeink);font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  pre .k{color:#8ab4ff}.pre .s{color:#a6e3a1}
+  .copy{position:absolute;top:9px;right:9px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font:600 12px/1 inherit;cursor:pointer}
+  .copy:hover{opacity:.82}
+  .copy.ok{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .note{font-size:13px;color:var(--mut);margin-top:11px}
+  .note code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;background:var(--card);border:1px solid var(--line);padding:1px 5px;border-radius:5px}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--mut);font-size:14px;display:flex;gap:18px;flex-wrap:wrap}
+  footer a{text-decoration:none}footer a:hover{text-decoration:underline}
+  .live{margin-top:16px;font-size:13px;color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><span class="mark">a</span> a.hanzo.ai</div>
+
+  <h1>Drop a Hanzo widget onto any site.</h1>
+  <p class="sub">Paste one line of HTML. Get a working widget — Ask-AI chat, analytics, or hosted checkout. Tiny, framework-free, Shadow-DOM isolated, so it never breaks your page.</p>
+
+  <div class="cards">
+
+    <div class="card">
+      <h2>💬 Ask AI <span class="tag">data-key = hz_</span></h2>
+      <p>A floating chat bubble that streams answers from your Hanzo AI. Uses a client-safe <strong>hz_ widget key</strong> that bills your org.</p>
+      <div class="snip">
+        <button class="copy" data-copy>Copy</button>
+        <pre><code>&lt;script src="https://a.hanzo.ai/chat" data-key="hz_..."&gt;&lt;/script&gt;</code></pre>
+      </div>
+      <p class="note">Optional: <code>data-model</code> <code>data-title</code> <code>data-greeting</code> <code>data-accent</code>. The bubble in the corner of this page is the real widget →</p>
+    </div>
+
+    <div class="card">
+      <h2>📈 Analytics <span class="tag">data-key = pk_</span></h2>
+      <p>Zero-config event capture + <em>Annotate</em>: schema.org / <code>data-slot</code> microdata auto-emits signals to <code>api.hanzo.ai/v1/analytics</code>. Uses a publishable, write-only <strong>pk_ ingest token</strong>.</p>
+      <div class="snip">
+        <button class="copy" data-copy>Copy</button>
+        <pre><code>&lt;script src="https://a.hanzo.ai/analytics" data-key="pk_..."&gt;&lt;/script&gt;</code></pre>
+      </div>
+      <p class="note">Then call <code>window.hanzoAnalytics.track(name, params)</code> for custom events.</p>
+    </div>
+
+    <div class="card">
+      <h2>🛒 Checkout <span class="tag">data-key = pk_</span></h2>
+      <p>Hosted checkout — card fields live on Hanzo's page, never your DOM. Tag any button and it just works. Uses a <strong>publishable pk_ key</strong>.</p>
+      <div class="snip">
+        <button class="copy" data-copy>Copy</button>
+        <pre><code>&lt;script src="https://a.hanzo.ai/checkout" data-key="pk_..."&gt;&lt;/script&gt;
+&lt;button data-hanzo-checkout data-slug="tee" data-name="T-Shirt" data-price="29"&gt;Buy&lt;/button&gt;</code></pre>
+      </div>
+      <p class="note">Custom carts: <code>window.hanzoCheckout.createSession({lineItems}).then(window.hanzoCheckout.redirectToCheckout)</code>.</p>
+    </div>
+
+  </div>
+
+  <p class="live">The extensionless URL is canonical (<code>/chat</code>); the <code>.js</code> form works too (<code>/chat.js</code>). Each loader reads <code>data-*</code>, refuses secret keys, and degrades to a console warning if misconfigured — it never throws into your page.</p>
+
+  <footer>
+    <a href="https://hanzo.ai">hanzo.ai</a>
+    <a href="https://docs.hanzo.ai">docs</a>
+    <a href="https://hanzo.id">get a key</a>
+    <span style="margin-left:auto">Powered by Hanzo AI</span>
+  </footer>
+</div>
+
+<script>
+  // Copy buttons — copy the <code> text of the sibling snippet.
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var code = b.parentNode.querySelector('code').innerText;
+      navigator.clipboard.writeText(code).then(function () {
+        b.textContent = 'Copied'; b.classList.add('ok');
+        setTimeout(function () { b.textContent = 'Copy'; b.classList.remove('ok'); }, 1400);
+      }).catch(function () { b.textContent = 'Copy failed'; });
+    });
+  });
+</script>
+<!-- Live preview: the real Ask-AI bubble. The page loads the .js form so the demo
+     works on any static base; the advertised one-liner is the clean /chat alias.
+     Sending needs a valid hz_ key; with the demo key it shows the graceful
+     "not authorized" path — the widget UI is real. -->
+<script src="/chat.js" data-key="hz_demo" data-greeting="Hi! This is the live Ask-AI bubble. Add your hz_ key to make it answer."></script>
+</body>
+</html>
