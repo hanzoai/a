@@ -15,16 +15,6 @@ images:
     dockerfile: Dockerfile
     repo: ghcr.io/hanzoai/a
 
-# Deploy: roll the freshly-built image onto the `a` App CR. Fires only on `main`
-# (+ tags); PRs and forks build but never deploy.
-deploy:
-  cluster: do-sfo3-hanzo-k8s
-  namespace: hanzo
-  "on": [main]
-  services:
-    - name: a
-      image: a
-
 kms:
   path: /deploy
   environment: prod
